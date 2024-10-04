@@ -16,7 +16,8 @@ public class Event {
 	
 	
 	enum event_Type{
-		Movie,Sports,Concert}
+		movie,sports, Concert
+    }
 	
 	
 	public Event(){
@@ -140,13 +141,13 @@ public class Event {
     
     public void display_event_details() {
     	System.out.println("Event Details");
-    	System.out.println("Name: " + event_name);
-    	System.out.println("Date: " + event_date);
-    	System.out.println("Time: " + event_time);
-    	System.out.println("Venue " + venue_name);
-    	System.out.println("Event Type: " + eventType);
-    	System.out.println("AvailableSeats: " + available_seats);
-    	System.out.println("Ticket Price: ₹" + ticket_price);
+    	System.out.println("Name: " + this.event_name);
+    	System.out.println("Date: " + this.event_date);
+    	System.out.println("Time: " + this.event_time);
+    	System.out.println("Venue " + this.venue_name);
+    	System.out.println("Event Type: " + this.eventType);
+    	System.out.println("AvailableSeats: " + this.available_seats);
+    	System.out.println("Ticket Price: ₹" + this.ticket_price);
     }
     
     
