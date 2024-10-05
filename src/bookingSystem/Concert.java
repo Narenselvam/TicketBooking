@@ -1,11 +1,14 @@
 package bookingSystem;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Concert extends Event{
 
     private String artist;
     private String type;
 
-    public Concert(){
+    public Concert(String event_name, LocalDate eventDate, LocalTime eventTime, String venue_name, int total_seats, double ticket_price, String unknown, String s){
     }
 
     public Concert(String artist,String type){

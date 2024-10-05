@@ -1,12 +1,15 @@
 package bookingSystem;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Sports extends Event {
 
     private String sportsName;
     private String teamName;
 
 
-    public Sports() {
+    public Sports(String event_name, LocalDate eventDate, LocalTime eventTime, String venue_name, int total_seats, double ticket_price, String unknown, String s) {
     }
 
     public Sports(String sportsName, String teamName){

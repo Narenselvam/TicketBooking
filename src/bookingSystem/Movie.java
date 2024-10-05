@@ -1,5 +1,8 @@
 package bookingSystem;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Movie extends Event{
 
     private String genre;
@@ -7,7 +10,7 @@ public class Movie extends Event{
     private String actressName;
 
 
-    public Movie(){
+    public Movie(String event_name, LocalDate eventDate, LocalTime eventTime, String venue_name, int total_seats, double ticket_price, String unknown, String s, String string){
     }
 
     public Movie (String genre,String actorName,String actressName){

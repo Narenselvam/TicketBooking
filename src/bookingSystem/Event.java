@@ -125,9 +125,11 @@ public class Event {
     	return total_seats - available_seats;
     }
     
-    public int book_tickets(int num_tickets) {
-    	available_seats-=num_tickets;
-    	return available_seats;
+    public boolean book_tickets(int num_tickets) {
+    	if (num_tickets<total_seats){
+        available_seats-=num_tickets;
+    	return true;}
+        return false;
     }
     
     public boolean cancel_booking(int num_tickets) {
