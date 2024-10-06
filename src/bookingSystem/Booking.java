@@ -28,11 +28,15 @@ public class Booking {
 
     public void book_tickets(int num_tickets){
         this.num_tickets += num_tickets;
-        event.book_tickets(num_tickets);
+        if(event.book_tickets(num_tickets)){
         double v = calculate_booking_cost(num_tickets);
         System.out.println("Tickets Booked !!");
-        System.out.println("Total cost: " + v);
-    }
+        System.out.println("Total cost: " + v);}
+        else {
+            System.out.println("No tickets Available");
+        }
+        }
+
 
 
     public void cancel_booking(int num_tickets){

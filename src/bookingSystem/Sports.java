@@ -9,13 +9,17 @@ public class Sports extends Event {
     private String teamName;
 
 
-    public Sports(String event_name, LocalDate eventDate, LocalTime eventTime, String venue_name, int total_seats, double ticket_price, String unknown, String s) {
+    public Sports(){
     }
 
-    public Sports(String sportsName, String teamName){
-        this.sportsName = sportsName;
-        this.teamName = teamName;
+    public Sports(String event_name, LocalDate eventDate, LocalTime eventTime, String venue_name, int total_seats, double ticket_price, String sportsName, String teamName) {
+        super( event_name,  eventDate,  eventTime, venue_name,  total_seats,  ticket_price, event_Type.valueOf("sports"));
+
+        this.sportsName = sportsName; // Name of the Game
+        this.teamName = teamName; // (India vs Pakistan)
     }
+
+
 
     public String getSportsName() {
         return sportsName;

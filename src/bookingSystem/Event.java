@@ -16,7 +16,7 @@ public class Event {
 	
 	
 	enum event_Type{
-		movie,sports, Concert
+		movie,sports, concert
     }
 	
 	
@@ -25,7 +25,7 @@ public class Event {
 	}
 	
 	public Event(String event_name,LocalDate event_date,LocalTime event_time,
-			String	venue_name,int total_seats,int available_seats,double ticket_price,event_Type eventType){
+			String	venue_name,int total_seats,double ticket_price,event_Type eventType){
 		
 		
 		this.event_name = event_name;
@@ -33,7 +33,7 @@ public class Event {
         this.event_time = event_time;
         this.venue_name = venue_name;
         this.total_seats = total_seats;
-        this.available_seats = available_seats; // Initially, all seats are available
+        this.available_seats = total_seats; // Initially, all seats are available
         this.ticket_price = ticket_price;
         this.eventType = eventType;
 
@@ -126,7 +126,7 @@ public class Event {
     }
     
     public boolean book_tickets(int num_tickets) {
-    	if (num_tickets<total_seats){
+    	if (num_tickets<=available_seats){
         available_seats-=num_tickets;
     	return true;}
         return false;

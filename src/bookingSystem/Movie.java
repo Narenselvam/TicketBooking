@@ -10,15 +10,21 @@ public class Movie extends Event{
     private String actressName;
 
 
-    public Movie(String event_name, LocalDate eventDate, LocalTime eventTime, String venue_name, int total_seats, double ticket_price, String unknown, String s, String string){
+    public Movie (){
     }
 
-    public Movie (String genre,String actorName,String actressName){
+
+    public Movie(String event_name, LocalDate eventDate, LocalTime eventTime, String venue_name, int total_seats,
+                 double ticket_price,
+                 String genre,String actorName,String actressName){
+
+        super( event_name,  eventDate,  eventTime, venue_name,  total_seats,  ticket_price, event_Type.valueOf("movie"));
         this.actorName = actorName;
         this.genre = genre;
         this.actressName = actressName;
 
     }
+
 
 
     public String getGenre() {
