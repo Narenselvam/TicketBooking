@@ -13,7 +13,7 @@ public abstract class Event {
     private int available_seats;
     private double ticket_price;
     private dao.Event.event_Type eventType;
-
+    private Venue venue; // Reference to Venue class
 
     enum event_Type{
         movie,sports, concert
@@ -102,6 +102,13 @@ public abstract class Event {
         this.ticket_price = ticketPrice;
     }
 
+    public Venue getVenue() {
+        return venue;
+    }
+
+    public void setVenue(Venue venue) {
+        this.venue = venue;
+    }
 
 
     public dao.Event.event_Type getEventType() {
@@ -150,6 +157,11 @@ public abstract class Event {
         System.out.println("Event Type: " + this.eventType);
         System.out.println("AvailableSeats: " + this.available_seats);
         System.out.println("Ticket Price: ₹" + this.ticket_price);
+        if (this.venue != null) {
+            this.venue.display_venue_details();
+        } else {
+            System.out.println("No Venue details available.");
+        }
     }
 
 }
