@@ -1,5 +1,4 @@
-package bookingSystem;
-import java.math.BigDecimal;
+package entity;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -102,25 +101,86 @@ public class TicketBookingSystem {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("\n--- Ticket Booking System ---");
-        System.out.println("1. Display Event");
-        System.out.println("2. Book Tickets");
-        System.out.println("3. Cancel Tickets");
-        System.out.println("4. Exit");
+        System.out.println("1. Create Event");
+        System.out.println("2. Display Event");
+        System.out.println("3. Book Tickets");
+        System.out.println("4. Cancel Tickets");
+        System.out.println("5. Exit");
         System.out.print("Enter your choice: ");
 
         int choice = sc.nextInt();
         sc.nextLine();
 
         switch (choice) {
+            case 1:{
+                System.out.println("\n--- Create Event ---");
+                System.out.println("Enter Event Name :");
+                String eventName= sc.nextLine();
 
-            case 1: {
+                System.out.print("Enter Date: ");
+                String dateInput = sc.nextLine();
+
+                System.out.print("Enter Time: ");
+                String timeInput = sc.nextLine();
+
+                System.out.print("Enter Total Seats: ");
+                int totalSeats = sc.nextInt();
+                sc.nextLine();
+
+                System.out.print("Enter Ticket Price: ");
+                double ticketPrice = sc.nextDouble();
+                sc.nextLine();
+
+                System.out.print("Enter Event Type: ");
+                String eventType = sc.nextLine();
+
+                System.out.print("Enter Venue Name: ");
+                String venueName = sc.nextLine();
+
+                String eventDetails="";
+                switch (eventType.toLowerCase()) {
+
+                    case "movie":
+                        System.out.print("Enter Movie Genre: ");
+                        String movieGenre = sc.nextLine();
+                        System.out.print("Enter Actor Name: ");
+                        String actorName = sc.nextLine();
+                        System.out.print("Enter Actress Name: ");
+                        String actressName = sc.nextLine();
+                        eventDetails += ", Genre: " + movieGenre + ", Actor: " + actorName + ", Actress: " + actressName;
+                        break;
+                    case "sport":
+                        System.out.print("Enter Sport Name: ");
+                        String sportName = sc.nextLine();
+                        System.out.print("Enter Team Name: ");
+                        String teamName = sc.nextLine();
+                        eventDetails += ", Sport: " + sportName + ", Team: " + teamName;
+                        break;
+                    case "concert":
+                        System.out.print("Enter Artist Name: ");
+                        String artistName = sc.nextLine();
+                        System.out.print("Enter Event Type: ");
+                        String concertType = sc.nextLine();
+                        eventDetails += ", Artist: " + artistName + ", Type: " + concertType;
+                        break;
+                    default:
+                        eventDetails += ", Additional Details: " + eventDetails;
+                }
+
+
+                bookingSystem.create_event(eventName, dateInput, timeInput,
+                        totalSeats, ticketPrice, eventType, venueName,eventDetails);
+
+            }
+            case 2: {
+
                 System.out.println("Enter event Name : ");
                 String eventName = sc.nextLine();
 //                sc.nextLine();
                 bookingSystem.display_event_details(eventName);
                 break;
             }
-            case 2:{
+            case 3:{
                 System.out.print("Enter event name: ");
                 String eventName = sc.nextLine();
                 System.out.print("Enter number of tickets: ");
@@ -129,7 +189,7 @@ public class TicketBookingSystem {
                 bookingSystem.book_tickets(eventName,numTicket);
                 break;
             }
-            case 3:{
+            case 4:{
                 System.out.print("Enter event name: ");
                 String eventName = sc.nextLine();
                 System.out.print("Enter number of tickets: ");
@@ -139,7 +199,7 @@ public class TicketBookingSystem {
                 break;
             }
 
-            case 4: {
+            case 5: {
                 System.out.println("Thank you for using the ticket booking system.");
                 System.exit(0);
         }

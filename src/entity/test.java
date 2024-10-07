@@ -1,4 +1,4 @@
-package bookingSystem;
+package entity;
 
 public class test {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package bookingSystem;
+package entity;
 
 public class Customer {
 
