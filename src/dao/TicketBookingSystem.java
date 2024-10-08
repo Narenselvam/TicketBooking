@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class TicketBookingSystem extends BookingSystem {
     private List<Event> events = new ArrayList<>();
+    private List<Booking> bookings = new ArrayList<>();
     @Override
     public Event create_event(String event_name, String date, String time, int total_seats,
                               double ticket_price, String event_type, String venue_name, String... eventDetails) {
@@ -64,31 +65,90 @@ public class TicketBookingSystem extends BookingSystem {
     }
 
     @Override
-    public void book_tickets(String eventName, int num_tickets) {
+    public double calculate_booking_cost(String eventName, int num_tickets) {
         Event event =findEventByName(eventName);
 
-        if (event!=null){
-            event.book_tickets(num_tickets);
-            System.out.println("Available Seats" + event.getAvailableSeats());
-        }
-        else {
-            System.out.println("sorry Event sold out !!,no tickets Available");
-
-        }
+        return event.getTicketPrice() * num_tickets;
     }
 
     @Override
-    public void cancel_tickets(String eventName, int num_tickets) {
+    public void book_tickets(String eventName, int num_tickets) {
         Event event =findEventByName(eventName);
 
-        if (event!=null){
-            event.cancel_booking(num_tickets);
-            System.out.println("Available Seats" + event.getAvailableSeats());
+        if (event == null) {
+            System.out.println("Event not found.");
+            return;
         }
-        else {
-            System.out.println("sorry Event sold out !!,no tickets Available");
+        if (event.getAvailableSeats() < num_tickets) {
+            System.out.println("Not enough seats available.");
+            return;
+        }
 
+
+        List<Customer> customers = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+
+        for (int i = 0; i < num_tickets; i++) {
+            System.out.println("Enter details for customer " + (i + 1) + ":");
+            System.out.print("Name: ");
+            String customerName = scanner.nextLine();
+            System.out.print("Email: ");
+            String email = scanner.nextLine();
+            System.out.print("Phone number: ");
+            int phoneNumber = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            customers.add(new Customer(customerName, email, phoneNumber));
         }
+        double totalCost = calculate_booking_cost(eventName, num_tickets);
+        Booking booking = new Booking(customers, event, num_tickets, totalCost);
+        event.setAvailableSeats(event.getAvailableSeats() - num_tickets);
+
+        bookings.add(booking);
+        System.out.println("Booking successful. Booking ID: " + booking.getBookingId());
+
+
+
+    }
+
+    @Override
+    public void get_event_details(String eventName) {
+
+        Event event = findEventByName(eventName);
+        event.display_event_details();
+    }
+
+    @Override
+    public void cancel_tickets(int booking_id, int num_tickets) {
+        Booking cancelbooking =null;
+        for (Booking booked : bookings){
+            if (booked.getBookingId() == booking_id){
+                cancelbooking=booked;
+                break;
+            }
+        }
+
+        if (cancelbooking == null) {
+            System.out.println("Booking not found with ID: " + booking_id);
+            return;
+        }
+
+        Event event = cancelbooking.getEvent();
+        event.setAvailableSeats(event.getAvailableSeats() + num_tickets);
+
+        if (cancelbooking.getNumTickets() == num_tickets) {
+            // Cancel the entire booking
+            bookings.remove(cancelbooking);
+            System.out.println("Booking " + booking_id + " has been fully cancelled.");
+        } else {
+            // Partially cancel the booking
+            cancelbooking.setNumTickets(cancelbooking.getNumTickets() - num_tickets);
+            double refundAmount = event.getTicketPrice() * num_tickets;
+            cancelbooking.setTotalCost(cancelbooking.getTotalCost() - refundAmount);
+            System.out.println(num_tickets + " tickets cancelled from booking " + booking_id + ". Refund amount: $" + refundAmount);
+        }
+
+        System.out.println("Cancellation successful. Updated available seats for event '" + event.getEventName() + "': " + event.getAvailableSeats());
     }
 
 
@@ -111,7 +171,8 @@ public class TicketBookingSystem extends BookingSystem {
             System.out.println("2. Get Available Seats");
             System.out.println("3. Book Tickets");
             System.out.println("4. Cancel Tickets");
-            System.out.println("5. Exit");
+            System.out.println("5. Show Event Details");
+            System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = sc.nextInt();
@@ -183,7 +244,7 @@ public class TicketBookingSystem extends BookingSystem {
                     System.out.println("Enter event Name : ");
                     String eventName = sc.nextLine();
 //                sc.nextLine();
-                    System.out.println(bookingSystem.get_available_seats(eventName));
+                    System.out.println("Available Tickets for the Event" +bookingSystem.get_available_seats(eventName));
                     break;
                 }
                 case 3:{
@@ -196,16 +257,20 @@ public class TicketBookingSystem extends BookingSystem {
                     break;
                 }
                 case 4:{
-                    System.out.print("Enter event name: ");
-                    String eventName = sc.nextLine();
+                    System.out.print("Enter Booking ID : ");
+                    int bookingId = sc.nextInt();
                     System.out.print("Enter number of tickets: ");
                     int numTicket = sc.nextInt();
 
-                    bookingSystem.cancel_tickets(eventName,numTicket);
+                    bookingSystem.cancel_tickets(bookingId,numTicket);
                     break;
                 }
-
-                case 5: {
+                case 5:{
+                    System.out.println("Enter Event Name :");
+                    String eventName = sc.nextLine();
+                    bookingSystem.get_event_details(eventName);
+                }
+                case 6: {
                     System.out.println("Thank you for using the ticket booking system.");
                     System.exit(0);
                 }

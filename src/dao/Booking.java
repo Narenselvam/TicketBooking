@@ -12,7 +12,7 @@ public class Booking {
     private int bookingId;
     private List<Customer> customers= new ArrayList<>();
     private Event event;
-    private int num_tickets;
+    private int num_tickets = customers.size();
     private double total_cost;
     private LocalDateTime booking_date;
 
