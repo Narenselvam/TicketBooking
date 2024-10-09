@@ -12,10 +12,10 @@ public class Concert extends Event{
     public Concert(){
     }
 
-    public Concert(String event_name, LocalDate eventDate, LocalTime eventTime, String venue_name, int total_seats, double ticket_price, String artist,String type){
-        super( event_name,  eventDate,  eventTime, venue_name,  total_seats,  ticket_price, event_Type.valueOf("concert"));
+    public Concert(String event_name, LocalDate eventDate, LocalTime eventTime, Venue venue_name, int total_seats, double ticket_price, String artist, String type){
+        super( event_name,  eventDate,  eventTime, venue_name,  total_seats,  ticket_price, Event.event_Type.valueOf("concert"));
         this.artist=artist;
-       this.type=type; //(Theatrical, Classical, Rock, Recital)
+        this.type=type; //(Theatrical, Classical, Rock, Recital)
     }
 
 

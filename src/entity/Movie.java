@@ -3,7 +3,7 @@ package entity;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Movie extends Event{
+public  class Movie extends Event {
 
     private String genre;
     private String actorName;
@@ -14,11 +14,11 @@ public class Movie extends Event{
     }
 
 
-    public Movie(String event_name, LocalDate eventDate, LocalTime eventTime, String venue_name, int total_seats,
+    public Movie(String event_name, LocalDate eventDate, LocalTime eventTime, Venue venue_name, int total_seats,
                  double ticket_price,
-                 String genre,String actorName,String actressName){
+                 String genre, String actorName, String actressName){
 
-        super( event_name,  eventDate,  eventTime, venue_name,  total_seats,  ticket_price, event_Type.valueOf("movie"));
+        super( event_name,  eventDate,  eventTime, venue_name,  total_seats,  ticket_price, Event.event_Type.valueOf("movie"));
         this.actorName = actorName;
         this.genre = genre;
         this.actressName = actressName;
@@ -59,8 +59,4 @@ public class Movie extends Event{
         System.out.println("ActressName:" + this.actressName);
 
     }
-
 }
-
-
-

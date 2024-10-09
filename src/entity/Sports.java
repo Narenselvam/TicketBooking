@@ -3,7 +3,7 @@ package entity;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Sports extends Event {
+public  class Sports extends Event{
 
     private String sportsName;
     private String teamName;
@@ -12,8 +12,8 @@ public class Sports extends Event {
     public Sports(){
     }
 
-    public Sports(String event_name, LocalDate eventDate, LocalTime eventTime, String venue_name, int total_seats, double ticket_price, String sportsName, String teamName) {
-        super( event_name,  eventDate,  eventTime, venue_name,  total_seats,  ticket_price, event_Type.valueOf("sports"));
+    public Sports(String event_name, LocalDate eventDate, LocalTime eventTime, Venue venue_name, int total_seats, double ticket_price, String sportsName, String teamName) {
+        super( event_name,  eventDate,  eventTime, venue_name,  total_seats,  ticket_price, Event.event_Type.valueOf("sports"));
 
         this.sportsName = sportsName; // Name of the Game
         this.teamName = teamName; // (India vs Pakistan)
