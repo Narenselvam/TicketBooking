@@ -1,7 +1,6 @@
-package dao;
+package bean;
 
-import entity.Event;
-import entity.*;
+import service.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

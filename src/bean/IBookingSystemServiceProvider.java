@@ -1,6 +1,6 @@
-package dao;
+package bean;
 
-import entity.Customer;
+import service.Customer;
 
 
 public interface IBookingSystemServiceProvider {

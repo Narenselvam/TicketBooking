@@ -1,4 +1,4 @@
-package entity;
+package service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -11,7 +11,7 @@ public abstract class Event {
     private int total_seats;
     private int available_seats;
     private double ticket_price;
-    private Event.event_Type eventType;
+    private event_Type eventType;
     private Venue venue; // Reference to Venue class
 
     enum event_Type{
@@ -24,7 +24,7 @@ public abstract class Event {
     }
 
     public Event(String event_name, LocalDate event_date, LocalTime event_time,
-                 Venue	venue_name, int total_seats, double ticket_price, Event.event_Type eventType){
+                 Venue venue_name, int total_seats, double ticket_price, event_Type eventType){
 
 
         this.event_name = event_name;
@@ -102,11 +102,11 @@ public abstract class Event {
     }
 
 
-    public Event.event_Type getEventType() {
+    public event_Type getEventType() {
         return eventType;
     }
 
-    public void setEventType(Event.event_Type eventType) {
+    public void setEventType(event_Type eventType) {
         this.eventType = eventType;
     }
 

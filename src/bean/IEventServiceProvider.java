@@ -1,5 +1,7 @@
-package dao;
-import entity.*;
+package bean;
+
+import service.Event;
+import service.Venue;
 
 public interface IEventServiceProvider {
     void get_event_details(String eventName);

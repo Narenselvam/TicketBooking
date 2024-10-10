@@ -1,11 +1,13 @@
-package dao;
+package bean;
 
-import entity.*;
+import service.Booking;
+import service.Customer;
+import service.Event;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookingSystemServiceProviderImpl  extends EventServiceProviderImpl implements IBookingSystemServiceProvider{
+public class BookingSystemServiceProviderImpl  extends EventServiceProviderImpl implements IBookingSystemServiceProvider {
 
     private List<Event> events = new ArrayList<>();
     private List<Booking> bookings = new ArrayList<>();

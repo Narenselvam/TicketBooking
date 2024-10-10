@@ -6,4 +6,5 @@
  *
  */
 module TicketBooking {
+    exports bookingSystem;
 }

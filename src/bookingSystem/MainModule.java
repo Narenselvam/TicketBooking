@@ -1,12 +1,20 @@
-import java.util.Scanner;
-import dao.*;
-import entity.*;
+package bookingSystem;
 
-public class TicketBookingSystem {
+import bean.BookingSystemServiceProviderImpl;
+import service.Customer;
+import service.Event;
+import service.Venue;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class MainModule {
     public static void main(String[] args) {
         BookingSystemServiceProviderImpl bookingSystem = new BookingSystemServiceProviderImpl();
         Scanner scanner = new Scanner(System.in);
-
+        Venue Mvenue = new Venue("Cinema Hall", "NYC");
+        bookingSystem.create_event("Movie Night", "2024-06-10", "19:30", 100, 15.00,
+                "movie", Mvenue, "Action", "Thriller", "John Doe");
         while (true) {
             System.out.println("\n--- Ticket Booking System ---");
             System.out.println("1. Create Event");
@@ -35,7 +43,7 @@ public class TicketBookingSystem {
                     cancelBooking(bookingSystem, scanner);
                     break;
                 case 5:
-                    getEventDetails(bookingSystem);
+                    getEventDetails(bookingSystem, scanner);
                     break;
                 case 6:
                     getBookingDetails(bookingSystem, scanner);
@@ -65,18 +73,59 @@ public class TicketBookingSystem {
         String eventType = scanner.nextLine();
         System.out.print("Enter Venue Name: ");
         String venueName = scanner.nextLine();
+        System.out.println("Enter venue Address");
+        String venueAddress = scanner.nextLine();
 
-        Venue venue = new Venue();
-        venue.setVenue_name(venueName);
-        Event event = bookingSystem.create_event(eventName, date, time, totalSeats, ticketPrice, eventType, venue);
+        String[] eventDetails;
+        switch (eventType.toLowerCase()) {
+            case "movie":
+                System.out.print("Enter Genre: ");
+                String movieGenre = scanner.nextLine().trim();
+                System.out.print("Enter Actor: ");
+                String actor = scanner.nextLine().trim();
+                System.out.print("Enter Actress: ");
+                String actress = scanner.nextLine().trim();
+                eventDetails = new String[]{movieGenre, actor, actress};
+                break;
+            case "sports":
+                System.out.print("Enter Sport: ");
+                String sport = scanner.nextLine().trim();
+                System.out.print("Enter Team: ");
+                String team = scanner.nextLine().trim();
+                eventDetails = new String[]{sport, team};
+                break;
+            case "concert":
+                System.out.print("Enter Concert Type: ");
+                String concertType = scanner.nextLine().trim();
+                System.out.print("Enter Artist Name: ");
+                String artist = scanner.nextLine().trim();
+                eventDetails = new String[]{concertType, artist};
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid event type");
+        }
+
+
+        Venue venue = new Venue(venueName, venueAddress);
+        Event event = bookingSystem.create_event(eventName, date, time, totalSeats, ticketPrice, eventType, venue, eventDetails);
         bookingSystem.addEvent(event);
         System.out.println("Event created successfully.");
     }
 
+    private static void getEventDetails(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner) {
+        System.out.println("Enter Event Name: ");
+        String eventName = scanner.nextLine();
+        String[] res = bookingSystem.get_Event_Details(eventName);
+        for (String str : res) {
+            System.out.println(str);
+        }
+    }
+
+
     private static void getAvailableSeats(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner) {
         System.out.print("Enter Event Name: ");
         String eventName = scanner.nextLine();
-        System.out.println("Available Seats: " + bookingSystem.getAvailableNoOfTickets());
+        System.out.println("Available Seats: " + bookingSystem.getAvailableNoOfTickets(eventName));
     }
 
     private static void bookTickets(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner) {
@@ -103,6 +152,19 @@ public class TicketBookingSystem {
         bookingSystem.book_tickets(eventName, numTickets, customers);
     }
 
-    private static void cancelBooking(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner){
+    private static void cancelBooking(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner) {
+        System.out.println("Enter Booking ID: ");
+        int bookingId = scanner.nextInt();
+        bookingSystem.cancel_booking(bookingId);
+
+
     }
+
+    private static void getBookingDetails(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner) {
+        System.out.println("Enter Booking ID: ");
+        int bookingId = scanner.nextInt();
+        bookingSystem.get_booking_details(bookingId);
+
+    }
+
 }
