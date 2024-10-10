@@ -4,8 +4,6 @@ import service.Event;
 import service.Venue;
 
 public interface IEventServiceProvider {
-    void get_event_details(String eventName);
-
 
    int getAvailableNoOfTickets(String eventName);
 

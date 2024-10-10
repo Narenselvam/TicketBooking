@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class EventServiceProviderImpl implements IEventServiceProvider {
@@ -72,12 +73,6 @@ public class EventServiceProviderImpl implements IEventServiceProvider {
         }
         return null;
     }
-    @Override
-    public void get_event_details(String eventName) {
-
-        Event event = findEventByName(eventName);
-        event.display_event_details();
-    }
 
 
     @Override
@@ -88,4 +83,25 @@ public class EventServiceProviderImpl implements IEventServiceProvider {
         }
         return 0;
     }
+
+
+    private static final Comparator<Event> EVENT_COMPARATOR = new Comparator<Event>() {
+        @Override
+        public int compare(Event e1, Event e2) {
+            // by event name
+            int nameComparison = e1.getEventName().compareToIgnoreCase(e2.getEventName());
+            if (nameComparison != 0) {
+                return nameComparison;
+            }
+            return e1.getVenue().getVenue_name().compareToIgnoreCase(e2.getVenue().getVenue_name());
+        }
+    };
+
+    public List<Event> getSortedEvents() {
+        List<Event> sortedEvents = new ArrayList<>(events);
+        sortedEvents.sort(EVENT_COMPARATOR);
+        return sortedEvents;
+    }
+
+
 }

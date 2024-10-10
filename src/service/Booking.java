@@ -1,11 +1,7 @@
 package service;
 
-import service.Customer;
-import service.Event;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -13,18 +9,18 @@ public class Booking {
 
     private static final AtomicInteger idCounter = new AtomicInteger(0);
     private int bookingId;
-    private List<Customer> customers= new ArrayList<>();
+    private Map<String, Customer> customers = new HashMap<>();
     private Event event;
-    private int num_tickets = customers.size();
+    private int num_tickets;
     private double total_cost;
     private LocalDateTime booking_date;
 
     public Booking() {
-        this.bookingId = idCounter.incrementAndGet(); // Automatically increment booking ID
-        this.booking_date = LocalDateTime.now(); // Set the booking date to the current timestamp
+        this.bookingId = idCounter.incrementAndGet();
+        this.booking_date = LocalDateTime.now();
     }
 
-    public Booking(List<Customer> customers, Event event, int num_tickets, double total_cost) {
+    public Booking(Map<String, Customer> customers, Event event, int num_tickets, double total_cost) {
         this.bookingId = idCounter.incrementAndGet();
         this.customers = customers;
         this.event = event;
@@ -38,11 +34,11 @@ public class Booking {
         return bookingId;
     }
 
-    public List<Customer> getCustomers() {
+    public Map<String, Customer> getCustomers() {
         return customers;
     }
 
-    public void setCustomers(List<Customer> customers) {
+    public void setCustomers(Map<String, Customer> customers) {
         this.customers = customers;
     }
 
@@ -88,9 +84,9 @@ public class Booking {
         System.out.println("Total Cost: ₹" + this.total_cost);
 
         System.out.println("Customers: ");
-        for (Customer customer : this.customers) {
+        for (Customer customer : this.customers.values()) {
             System.out.println("  - " + customer.getCustomer_name());
         }
-    }
 
+    }
 }

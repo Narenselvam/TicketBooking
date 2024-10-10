@@ -1,15 +1,16 @@
-package bookingSystem;
+package main.java.com.Ticketbookingsystem.app;
 
 import bean.BookingSystemServiceProviderImpl;
+import exception.*;
 import service.Customer;
 import service.Event;
 import service.Venue;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class MainModule {
-    public static void main(String[] args) {
+public class TicketBookingSystem {
+
+    public static void main(String[] args) throws EventNotFoundException, InvalidBookingIDException {
         BookingSystemServiceProviderImpl bookingSystem = new BookingSystemServiceProviderImpl();
         Scanner scanner = new Scanner(System.in);
         Venue Mvenue = new Venue("Cinema Hall", "NYC");
@@ -128,7 +129,8 @@ public class MainModule {
         System.out.println("Available Seats: " + bookingSystem.getAvailableNoOfTickets(eventName));
     }
 
-    private static void bookTickets(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner) {
+    private static void bookTickets(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner)
+    throws EventNotFoundException {
         System.out.print("Enter Event Name: ");
         String eventName = scanner.nextLine();
         System.out.print("Enter number of tickets: ");
@@ -152,7 +154,7 @@ public class MainModule {
         bookingSystem.book_tickets(eventName, numTickets, customers);
     }
 
-    private static void cancelBooking(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner) {
+    private static void cancelBooking(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner) throws InvalidBookingIDException {
         System.out.println("Enter Booking ID: ");
         int bookingId = scanner.nextInt();
         bookingSystem.cancel_booking(bookingId);
@@ -160,7 +162,7 @@ public class MainModule {
 
     }
 
-    private static void getBookingDetails(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner) {
+    private static void getBookingDetails(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner) throws InvalidBookingIDException {
         System.out.println("Enter Booking ID: ");
         int bookingId = scanner.nextInt();
         bookingSystem.get_booking_details(bookingId);
