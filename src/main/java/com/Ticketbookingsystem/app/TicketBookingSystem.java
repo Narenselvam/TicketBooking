@@ -6,16 +6,17 @@ import service.Customer;
 import service.Event;
 import service.Venue;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class TicketBookingSystem {
 
-    public static void main(String[] args) throws EventNotFoundException, InvalidBookingIDException {
+    public static void main(String[] args) throws EventNotFoundException, InvalidBookingIDException, SQLException {
         BookingSystemServiceProviderImpl bookingSystem = new BookingSystemServiceProviderImpl();
         Scanner scanner = new Scanner(System.in);
-        Venue Mvenue = new Venue("Cinema Hall", "NYC");
-        bookingSystem.create_event("Movie Night", "2024-06-10", "19:30", 100, 15.00,
-                "movie", Mvenue, "Action", "Thriller", "John Doe");
+//        Venue Mvenue = new Venue("Cinema Hall", "NYC");
+//        bookingSystem.create_event("Movie Night", "2024-06-10", "19:30", 100, 15.00,
+//                "movie", Mvenue, "Action", "Thriller", "John Doe");
         while (true) {
             System.out.println("\n--- Ticket Booking System ---");
             System.out.println("1. Create Event");
@@ -58,7 +59,7 @@ public class TicketBookingSystem {
         }
     }
 
-    private static void createEvent(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner) {
+    private static void createEvent(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner) throws SQLException {
         System.out.print("Enter Event Name: ");
         String eventName = scanner.nextLine();
         System.out.print("Enter Date (YYYY-MM-DD): ");
@@ -130,7 +131,7 @@ public class TicketBookingSystem {
     }
 
     private static void bookTickets(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner)
-    throws EventNotFoundException {
+            throws EventNotFoundException, SQLException {
         System.out.print("Enter Event Name: ");
         String eventName = scanner.nextLine();
         System.out.print("Enter number of tickets: ");
@@ -162,7 +163,7 @@ public class TicketBookingSystem {
 
     }
 
-    private static void getBookingDetails(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner) throws InvalidBookingIDException {
+    private static void getBookingDetails(BookingSystemServiceProviderImpl bookingSystem, Scanner scanner) throws InvalidBookingIDException, SQLException {
         System.out.println("Enter Booking ID: ");
         int bookingId = scanner.nextInt();
         bookingSystem.get_booking_details(bookingId);

@@ -7,5 +7,5 @@
  */
 module TicketBooking {
     requires java.sql;
-    exports bookingSystem;
+//    exports bookingSystem;
 }
